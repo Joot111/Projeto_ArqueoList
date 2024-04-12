@@ -13,7 +13,7 @@ namespace Projeto_ArqueoList.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index() /*shdsjd*/
         {
             return View();
         }
