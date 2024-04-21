@@ -3,11 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Projeto_ArqueoList.Models
 {
-    public class Artigo_Privado
+    public class Artigo
     {
-        public Artigo_Privado()
-        {
-            R1 = new HashSet<R1>();
+        public Artigo() {
+            ListaAutores = new HashSet<Autor>();
         }
         [Key]
         public int idArtigo { get; set; }
@@ -21,10 +20,12 @@ namespace Projeto_ArqueoList.Models
         public string Imagem { get; set; }
         public string Estado { get; set; }
 
+
         [ForeignKey(nameof(ArtigoEsp))]
         public int ArtigoEspFK { get; set; }
         public Artigo_Em_Espera ArtigoEsp { get; set; }
 
-        public ICollection<R1> R1 { get; set; }
+        public ICollection<Autor> ListaAutores { get; set; }
     }
+
 }

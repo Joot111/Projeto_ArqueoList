@@ -6,6 +6,6 @@ namespace Projeto_ArqueoList.Models
     {
         [ForeignKey(nameof(ArtigoPub))]
         public string ArtigoPubFK { get; set; }
-        public Artigo_Publico ArtigoPub { get; set; }
+        public Artigo ArtigoPub { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Projeto_ArqueoList.Models
 
         [ForeignKey(nameof(ArtigoPub))]
         public int ArtigoPubFK { get; set; }
-        public Artigo_Publico ArtigoPub { get; set; }
+        public Artigo ArtigoPub { get; set; }
 
         public ICollection<R3> R3 { get; }
     }
