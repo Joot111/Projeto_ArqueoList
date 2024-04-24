@@ -6,13 +6,12 @@ namespace Projeto_ArqueoList.Models
     public class Artigo
     {
         public Artigo() {
-            ListaAutores = new HashSet<Autor>();
+            ListaValidacao = new HashSet<Validacao>();
+            ListaArtigoTags = new HashSet<Artigo_Tag>();
         }
+
         [Key]
         public int ID { get; set; }
-        public int ID_Utente { get; set; }  
-        public int ID_Admnistrador { get; set; }
-        public int ID_Autor { get; set; }
         [StringLength(70)]
         public string Titulo { get; set; }
         [StringLength(5000)]
@@ -25,13 +24,22 @@ namespace Projeto_ArqueoList.Models
         [StringLength(50)]
         public string tipo {  get; set; }
 
+        [ForeignKey(nameof(UtenteArtigo))]
+        public int ID_Utente { get; set; }
+        public Utente UtenteArtigo { get; set; }
 
 
-        [ForeignKey(nameof(ArtigoEsp))]
-        public int ArtigoEspFK { get; set; }
-        public Artigo_Em_Espera ArtigoEsp { get; set; }
+        [ForeignKey(nameof(AdminArtigo))]
+        public int ID_Administrador { get; set; }
+        public Administrador AdminArtigo { get; set; }
 
-        public ICollection<Autor> ListaAutores { get; set; }
+        [ForeignKey(nameof(AutorArtigo))]
+        public int ID_Autor { get; set; }
+        public Autor AutorArtigo { get; set; }
+
+        public ICollection<Validacao> ListaValidacao { get; set; }
+        public ICollection<Artigo_Tag> ListaArtigoTags { get; set; }
+
     }
 
 }

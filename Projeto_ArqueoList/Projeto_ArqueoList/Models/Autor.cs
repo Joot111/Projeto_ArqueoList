@@ -5,6 +5,10 @@ namespace Projeto_ArqueoList.Models
 {
     public class Autor
     {
+        public Autor() {
+            ListaArtigo = new HashSet<Artigo>();
+        }
+
         [Key]
         public int idAutor { get; set; }
         [StringLength(30)]
@@ -16,5 +20,7 @@ namespace Projeto_ArqueoList.Models
         [ForeignKey(nameof(ArtigoPub))]
         public string ArtigoPubFK { get; set; }
         public Artigo ArtigoPub { get; set; }
+
+        public ICollection<Artigo> ListaArtigo { get; set; }
     }
 }
