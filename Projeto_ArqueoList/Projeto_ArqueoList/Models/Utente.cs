@@ -9,7 +9,6 @@ namespace Projeto_ArqueoList.Models
             ListaArtigo = new HashSet<Artigo>();
         }
 
-        [Key]
         public int idUtente { get; set; }
 
         public ICollection<Artigo> ListaArtigo { get; set; }

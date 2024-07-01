@@ -10,7 +10,6 @@ namespace Projeto_ArqueoList.Models
             ListaValidacao = new HashSet<Validacao>();
         }
 
-        [Key]
         public int idAdmin { get; set; }
 
         public ICollection <Artigo> ListaArtigo { get; set; }
