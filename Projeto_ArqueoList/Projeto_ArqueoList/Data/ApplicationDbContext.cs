@@ -25,5 +25,14 @@ namespace Projeto_ArqueoList.Data
 
         public DbSet <Artigo_Tag> ArtigoTags { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder); 
+            modelBuilder.Entity<Administrador>().ToTable("Administrador");
+            modelBuilder.Entity<Utente>().ToTable("Utente");
+            modelBuilder.Entity<Autor>().ToTable("Autor");
+            modelBuilder.Entity<Utilizador>().ToTable("Utilizador");
+        }
+
     }
 }
