@@ -22,6 +22,6 @@ namespace Projeto_ArqueoList.Models
         [DisplayFormat(ApplyFormatInEditMode = true,
                DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "A {0} é de preenchimento obrigatório")]
-        public DateOnly Data_Nascimento { get; set; }
+        public DateTime Data_Nascimento { get; set; }
     }
 }
