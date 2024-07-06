@@ -32,7 +32,7 @@ namespace Projeto_ArqueoList.Models
         [DisplayFormat(ApplyFormatInEditMode = true,
                         DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "A {0} é de preenchimento obrigatório")]
-        public DateOnly data_validacao { get; set; }
+        public DateTime data_validacao { get; set; }
 
         [StringLength(50)]
         public string tipo {  get; set; }

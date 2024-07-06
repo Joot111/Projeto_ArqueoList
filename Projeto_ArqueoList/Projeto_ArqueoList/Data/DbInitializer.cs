@@ -1,6 +1,6 @@
 ﻿using System;
-using Aulas.Models;
 using Microsoft.AspNetCore.Identity;
+using Projeto_ArqueoList.Data;
 
 namespace Aulas.Data
 {
@@ -11,7 +11,7 @@ namespace Aulas.Data
         internal static async void Initialize(ApplicationDbContext dbContext)
         {
 
-            ArgumentNullException.ThrowIfNull()
+            ArgumentNullException.ThrowIfNull(dbContext, nameof(dbContext));
         }
     }
 }
