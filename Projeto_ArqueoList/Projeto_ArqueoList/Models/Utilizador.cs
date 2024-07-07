@@ -4,6 +4,11 @@ namespace Projeto_ArqueoList.Models
 {
     public class Utilizador
     {
+        public Utilizador() 
+        {
+            ListaArtigo = new HashSet<Artigo>();
+        }
+
         [Key]
         public int idUtilizador { get; set; }
 
@@ -23,5 +28,7 @@ namespace Projeto_ArqueoList.Models
                DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "A {0} é de preenchimento obrigatório")]
         public DateTime Data_Nascimento { get; set; }
+
+        public ICollection<Artigo> ListaArtigo { get; set; }
     }
 }

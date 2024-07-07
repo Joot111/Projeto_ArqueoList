@@ -5,12 +5,12 @@ namespace Projeto_ArqueoList.Models
 {
     public class Utente : Utilizador
     {
-        public Utente() {
-            ListaArtigo = new HashSet<Artigo>();
+        public Utente() 
+        {
+        
         }
 
         public int idUtente { get; set; }
 
-        public ICollection<Artigo> ListaArtigo { get; set; }
     }
 }

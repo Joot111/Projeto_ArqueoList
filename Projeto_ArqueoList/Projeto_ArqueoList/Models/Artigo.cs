@@ -38,7 +38,11 @@ namespace Projeto_ArqueoList.Models
         public string tipo {  get; set; }
 
 
-        [ForeignKey(nameof(UtenteArtigo))]
+        [ForeignKey(nameof(UtilArtigo))]
+        public int ID_Utilizador { get; set; }
+        public Utilizador UtilArtigo { get; set; }
+
+        /*[ForeignKey(nameof(UtenteArtigo))]
         public int ID_Utente { get; set; }
         public Utente UtenteArtigo { get; set; }
 
@@ -48,7 +52,7 @@ namespace Projeto_ArqueoList.Models
 
         [ForeignKey(nameof(AutorArtigo))]
         public int ID_Autor { get; set; }
-        public Autor AutorArtigo { get; set; }
+        public Autor AutorArtigo { get; set; }*/
 
         public ICollection<Validacao> ListaValidacao { get; set; }
         public ICollection<Artigo_Tag> ListaArtigoTags { get; set; }
