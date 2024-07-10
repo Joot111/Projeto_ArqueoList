@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +15,22 @@ namespace Projeto_ArqueoList.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public ArtigosController(ApplicationDbContext context)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public ArtigosController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
+            _userManager = userManager;
         }
 
         // GET: Artigos
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Artigos.Include(a => a.UtilArtigo);
-            return View(await applicationDbContext.ToListAsync());
+            var artigosValidados = _context.Artigos.Where(a => a.validado);
+            return View(await artigosValidados.ToListAsync());
         }
 
         // GET: Artigos/Details/5
@@ -35,14 +42,40 @@ namespace Projeto_ArqueoList.Controllers
             }
 
             var artigo = await _context.Artigos
-                .Include(a => a.UtilArtigo)
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.ID == id 
+                && m.validado);
+
             if (artigo == null)
             {
                 return NotFound();
             }
 
             return View(artigo);
+        }
+
+        // GET: Artigos/Pessoais
+        public async Task<IActionResult> Pessoais()
+        {
+            // Obter o utilizador atual
+            var utilizador = await _userManager.GetUserAsync(User);
+
+            if (utilizador == null)
+            {
+                return NotFound();
+            }
+            if (int.TryParse(utilizador.Id, out var userid))
+            {
+                // Selecionar os artigos escritos pelo utilizador atual
+                var artigosPessoais = _context.Artigos
+                    .Where(a => a.ID_Utilizador == userid);
+
+                return View(await artigosPessoais.ToListAsync());
+            }
+            else
+            {
+                // Se não puder converter, retornar um erro
+                return BadRequest("Invalid user ID");
+            }
         }
 
         // GET: Artigos/Create
@@ -57,12 +90,70 @@ namespace Projeto_ArqueoList.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Titulo,Conteudo,Imagem,Nome_Autor,validado,data_validacao,tipo,ID_Utilizador")] Artigo artigo)
+        public async Task<IActionResult> Create([Bind("ID,Titulo,Conteudo, Nome_Autor,validado,data_validacao,tipo,ID_Utilizador")] Artigo artigo, IFormFile Imagem)
         {
+            /* 
+             * 
+             */
+
+            // vars. auxiliares
+            string nomeImagem = "";
+            bool haImagem = false;
+
+            // há ficheiro?
+            if (Imagem == null)
+            {
+                ModelState.AddModelError("",
+                   "O fornecimento de uma imagem é obrigatório!");
+                return View(artigo);
+            }
+            else
+            {
+                // há ficheiro, mas é imagem?
+                if (!(Imagem.ContentType == "image/png" ||
+                       Imagem.ContentType == "image/jpeg")
+                   )
+                {
+                    ModelState.AddModelError("",
+                   "Tem de fornecer um ficheiro PNG ou JPG para atribuir uma imagem!");
+                    return View(artigo);
+                }
+                else
+                {
+                    // há ficheiro, e é uma imagem válida
+                    haImagem = true;
+                    // obter o nome a atribuir à imagem
+                    Guid g = Guid.NewGuid();
+                    nomeImagem = g.ToString();
+                    // obter a extensão do nome do ficheiro
+                    string extensao = Path.GetExtension(Imagem.FileName);
+                    // adicionar a extensão ao nome da imagem
+                    nomeImagem += extensao;
+                    // adicionar o nome do ficheiro ao objeto que
+                    // vem do browser
+                    artigo.Imagem = nomeImagem;
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(artigo);
                 await _context.SaveChangesAsync();
+
+                if (haImagem)
+                {
+                    string nomePastaImagem = _webHostEnvironment.WebRootPath;
+                    nomePastaImagem = Path.Combine(nomePastaImagem, "Imagens");
+                    if (!Directory.Exists(nomePastaImagem))
+                    {
+                        Directory.CreateDirectory(nomePastaImagem);
+                    }
+                    string caminhoFinalImagem = Path.Combine(nomePastaImagem, nomeImagem);
+                    using var stream = new FileStream(caminhoFinalImagem, FileMode.Create);
+                    await Imagem.CopyToAsync(stream);
+                }
+
+                
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ID_Utilizador"] = new SelectList(_context.Utilizador, "idUtilizador", "Password", artigo.ID_Utilizador);
