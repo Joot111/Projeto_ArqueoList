@@ -63,11 +63,11 @@ namespace Projeto_ArqueoList.Controllers
             {
                 return NotFound();
             }
-            if (int.TryParse(utilizador.Id, out var userid))
+            if (int.TryParse(utilizador.Id, out int userId))
             {
                 // Selecionar os artigos escritos pelo utilizador atual
                 var artigosPessoais = _context.Artigos
-                    .Where(a => a.ID_Utilizador == userid);
+                    .Where(a => a.ID_Utilizador == userId);
 
                 return View(await artigosPessoais.ToListAsync());
             }
