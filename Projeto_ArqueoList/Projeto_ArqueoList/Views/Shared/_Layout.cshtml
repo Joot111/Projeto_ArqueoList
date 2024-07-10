@@ -1,5 +1,4 @@
-﻿﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -20,7 +19,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="CreateArticle">Create Article</a>
+                            <a class="nav-link" asp-area="" asp-controller="Utilizadors" asp-action="Index">CreateUser</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Artigos" asp-action="Pessoais">Personal Workshop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Artigos" asp-action="Index">Create Article</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Newsstand">Newsstand</a>
@@ -31,12 +36,13 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-dark text-white" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            <a class="nav-link btn btn-dark text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
                         </li>
                     </ul>
+
                 </div>
             </div>
         </nav>
@@ -50,12 +56,7 @@
         </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<<<<<<< HEAD
-    <!-- Retirei o "arroba" de popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-=======
-    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
->>>>>>> 7a55adbf828c3de4184e903745d9354b7bb8304a
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
