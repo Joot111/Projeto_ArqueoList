@@ -41,4 +41,9 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
+app.MapAreaControllerRoute(
+    name: "Identity",
+    areaName: "Identity",
+    pattern: "Identity/{controller=Account}/{action=Login}/{id?}");
+
 app.Run();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using Projeto_ArqueoList.Models;
 
 namespace Projeto_ArqueoList.Controllers
 {
+    [Authorize]
     public class ArtigosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -27,6 +29,7 @@ namespace Projeto_ArqueoList.Controllers
         }
 
         // GET: Artigos
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var artigosValidados = _context.Artigos.Where(a => a.validado);
@@ -34,6 +37,7 @@ namespace Projeto_ArqueoList.Controllers
         }
 
         // GET: Artigos/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
