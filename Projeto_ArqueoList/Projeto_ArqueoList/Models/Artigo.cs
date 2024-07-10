@@ -1,11 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Projeto_ArqueoList.Models
 {
     public class Artigo
     {
-        public Artigo() {
+        public Artigo()
+        {
             ListaValidacao = new HashSet<Validacao>();
             ListaArtigoTags = new HashSet<Artigo_Tag>();
         }
@@ -21,8 +24,8 @@ namespace Projeto_ArqueoList.Models
 
         [Display(Name = "Imagem")] // altera o nome do atributo no ecrã
         [StringLength(50)] // define o tamanho máximo como 50 caracteres
-        public string Imagem { get; set; } 
-        
+        public string Imagem { get; set; }
+
         [StringLength(50)]
         public string Nome_Autor { get; set; }
 
@@ -32,11 +35,11 @@ namespace Projeto_ArqueoList.Models
         [DisplayFormat(ApplyFormatInEditMode = true,
                         DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "A {0} é de preenchimento obrigatório")]
+        [CustomDate(ErrorMessage = "A data de validação não pode ser no futuro.")]
         public DateTime data_validacao { get; set; }
 
         [StringLength(50)]
-        public string tipo {  get; set; }
-
+        public string tipo { get; set; }
 
         [ForeignKey(nameof(UtilArtigo))]
         public int ID_Utilizador { get; set; }
@@ -56,7 +59,5 @@ namespace Projeto_ArqueoList.Models
 
         public ICollection<Validacao> ListaValidacao { get; set; }
         public ICollection<Artigo_Tag> ListaArtigoTags { get; set; }
-
     }
-
 }
