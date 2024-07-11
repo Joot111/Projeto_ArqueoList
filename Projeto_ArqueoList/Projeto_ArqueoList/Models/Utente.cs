@@ -1,16 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Projeto_ArqueoList.Models
 {
-    public class Utente : Utilizador
+    public class Utente
     {
-        public Utente() 
-        {
-        
-        }
+        [Key]
+        public int ID { get; set; }
 
-        public int idUtente { get; set; }
-
+        [Required]
+        [StringLength(100)]
+        public string Nome { get; set; }
     }
 }

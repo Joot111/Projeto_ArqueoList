@@ -4,15 +4,11 @@ namespace Projeto_ArqueoList.Models
 {
     public class Tag
     {
-        public Tag() {
-            ListaArtigoTags = new HashSet<Artigo_Tag>();
-        }
-
         [Key]
-        public int ID_Tag { get; set; }
-        [StringLength(50)]
-        public int Nome { get; set; }
+        public int ID { get; set; }
 
-        public ICollection<Artigo_Tag> ListaArtigoTags { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Nome { get; set; }
     }
 }

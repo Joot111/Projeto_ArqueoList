@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,57 +6,30 @@ namespace Projeto_ArqueoList.Models
 {
     public class Artigo
     {
-        public Artigo()
-        {
-            ListaValidacao = new HashSet<Validacao>();
-            ListaArtigoTags = new HashSet<Artigo_Tag>();
-        }
-
         [Key]
         public int ID { get; set; }
 
-        [StringLength(70)]
+        [Required]
+        [StringLength(200)]
         public string Titulo { get; set; }
 
-        [StringLength(5000)]
+        [Required]
         public string Conteudo { get; set; }
 
-        [Display(Name = "Imagem")] // altera o nome do atributo no ecrã
-        [StringLength(50)] // define o tamanho máximo como 50 caracteres
         public string Imagem { get; set; }
 
-        [StringLength(50)]
-        public string Nome_Autor { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string NomeAutor { get; set; }
 
-        public Boolean validado { get; set; }
+        public bool Validado { get; set; }
 
-        [DataType(DataType.Date)] // informa a View de como deve tratar este atributo
-        [DisplayFormat(ApplyFormatInEditMode = true,
-                        DataFormatString = "{0:dd-MM-yyyy}")]
-        [Required(ErrorMessage = "A {0} é de preenchimento obrigatório")]
-        [CustomDate(ErrorMessage = "A data de validação não pode ser no futuro.")]
-        public DateTime data_validacao { get; set; }
+        public DateTime? DataValidacao { get; set; }
 
-        [StringLength(50)]
-        public string tipo { get; set; }
+        public string Tipo { get; set; }
 
-        [ForeignKey(nameof(UtilArtigo))]
-        public int ID_Utilizador { get; set; }
+        [ForeignKey("Utilizador")]
+        public int UtilizadorID { get; set; }
         public Utilizador UtilArtigo { get; set; }
-
-        /*[ForeignKey(nameof(UtenteArtigo))]
-        public int ID_Utente { get; set; }
-        public Utente UtenteArtigo { get; set; }
-
-        [ForeignKey(nameof(AdminArtigo))]
-        public int ID_Administrador { get; set; }
-        public Administrador AdminArtigo { get; set; }
-
-        [ForeignKey(nameof(AutorArtigo))]
-        public int ID_Autor { get; set; }
-        public Autor AutorArtigo { get; set; }*/
-
-        public ICollection<Validacao> ListaValidacao { get; set; }
-        public ICollection<Artigo_Tag> ListaArtigoTags { get; set; }
     }
 }

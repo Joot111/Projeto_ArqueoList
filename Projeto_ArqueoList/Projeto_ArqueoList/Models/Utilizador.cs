@@ -1,34 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Projeto_ArqueoList.Models
 {
     public class Utilizador
     {
-        public Utilizador()
-        {
-            ListaArtigo = new HashSet<Artigo>();
-        }
-
         [Key]
-        public int idUtilizador { get; set; }
+        public int ID { get; set; }
 
-        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório.")]
-        [StringLength(30, ErrorMessage = "Atingiu o limite de characters.")]
-        public string Username { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string Nome { get; set; }
 
-        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório.")]
-        [StringLength(20, ErrorMessage = "Atingiu o limite de characters.")]
-        public string Password { get; set; }
+        [Required]
+        [EmailAddress]
+        [StringLength(100)]
+        public string Email { get; set; }
 
-
-        public string Role { get; set; }
-
-        [DataType(DataType.Date)] // informa a View de como deve tratar este atributo
-        [DisplayFormat(ApplyFormatInEditMode = true,
-               DataFormatString = "{0:dd-MM-yyyy}")]
-        [Required(ErrorMessage = "A {0} é de preenchimento obrigatório")]
-        public DateTime Data_Nascimento { get; set; }
-
-        public ICollection<Artigo> ListaArtigo { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string PasswordHash { get; set; }
     }
 }

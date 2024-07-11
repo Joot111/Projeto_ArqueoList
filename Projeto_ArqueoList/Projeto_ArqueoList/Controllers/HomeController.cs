@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using Projeto_ArqueoList.Models;
+using System;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Projeto_ArqueoList.Models;
 
 namespace Projeto_ArqueoList.Controllers
 {
@@ -13,20 +15,24 @@ namespace Projeto_ArqueoList.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index() /*josefino*/
+        public IActionResult Index()
         {
+            _logger.LogInformation("Home/Index accessed");
             return View();
         }
 
         public IActionResult Privacy()
         {
+            _logger.LogInformation("Home/Privacy accessed");
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var requestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            _logger.LogError($"Error occurred. Request ID: {requestId}");
+            return View(new ErrorViewModel { RequestId = requestId });
         }
     }
 }

@@ -2,14 +2,14 @@
 
 namespace Projeto_ArqueoList.Models
 {
-    public class Artigo_Tag
+    public class ArtigoTag
     {
-        [ForeignKey(nameof(ArtigoTag))]
-        public int ID { get; set; }
-        public Artigo ArtigoTag { get; set; }
+        [ForeignKey("Artigo")]
+        public int ArtigoID { get; set; }
+        public Artigo Artigo { get; set; }
 
-        [ForeignKey(nameof(TagArtigo))]
-        public int ID_Tag { get; set; }
-        public Tag TagArtigo { get; set; }
+        [ForeignKey("Tag")]
+        public int TagID { get; set; }
+        public Tag Tag { get; set; }
     }
 }

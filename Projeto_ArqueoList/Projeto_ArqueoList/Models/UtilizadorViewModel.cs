@@ -5,19 +5,17 @@ namespace Projeto_ArqueoList.Models
     public class UtilizadorViewModel
     {
         [Required]
-        [StringLength(50)]
-        public string Username { get; set; }
-
-        [Required]
         [StringLength(100)]
+        public string Nome { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [StringLength(100)]
+        public string Email { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
+        [StringLength(100)]
         public string Password { get; set; }
-
-        [Required]
-        public string Role { get; set; }
-
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTime Data_Nascimento { get; set; }
     }
 }

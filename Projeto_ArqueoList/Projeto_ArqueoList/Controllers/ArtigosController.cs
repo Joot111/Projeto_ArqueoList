@@ -48,13 +48,11 @@ namespace Projeto_ArqueoList.Controllers
         // GET: Artigos/Create
         public IActionResult Create()
         {
-            ViewData["ID_Utilizador"] = new SelectList(_context.Utilizador, "idUtilizador", "Password");
+            ViewBag.ID_Utilizador = new SelectList(_context.Utilizador, "idUtilizador", "Password");
             return View();
         }
 
         // POST: Artigos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Titulo,Conteudo,Imagem,Nome_Autor,validado,data_validacao,tipo,ID_Utilizador")] Artigo artigo)
@@ -65,7 +63,7 @@ namespace Projeto_ArqueoList.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID_Utilizador"] = new SelectList(_context.Utilizador, "idUtilizador", "Password", artigo.ID_Utilizador);
+            ViewBag.ID_Utilizador = new SelectList(_context.Utilizador, "idUtilizador", "Password", artigo.ID_Utilizador);
             return View(artigo);
         }
 
@@ -82,13 +80,11 @@ namespace Projeto_ArqueoList.Controllers
             {
                 return NotFound();
             }
-            ViewData["ID_Utilizador"] = new SelectList(_context.Utilizador, "idUtilizador", "Password", artigo.ID_Utilizador);
+            ViewBag.ID_Utilizador = new SelectList(_context.Utilizador, "idUtilizador", "Password", artigo.ID_Utilizador);
             return View(artigo);
         }
 
         // POST: Artigos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Titulo,Conteudo,Imagem,Nome_Autor,validado,data_validacao,tipo,ID_Utilizador")] Artigo artigo)
@@ -118,7 +114,7 @@ namespace Projeto_ArqueoList.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID_Utilizador"] = new SelectList(_context.Utilizador, "idUtilizador", "Password", artigo.ID_Utilizador);
+            ViewBag.ID_Utilizador = new SelectList(_context.Utilizador, "idUtilizador", "Password", artigo.ID_Utilizador);
             return View(artigo);
         }
 
