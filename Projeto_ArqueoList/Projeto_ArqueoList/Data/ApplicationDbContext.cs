@@ -35,7 +35,8 @@ namespace Projeto_ArqueoList.Data
             modelBuilder.Entity<Utilizador>().ToTable("Utilizador");
 
             modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole { Id = "adm", Name = "Admin", NormalizedName = "Administrador"}
+                new IdentityRole { Id = "adm", Name = "Admin", NormalizedName = "Administrador"},
+                new IdentityRole { Id = "utente", Name = "Utente", NormalizedName = "Utente" }
                 );
         }
 

@@ -7,10 +7,17 @@ namespace Projeto_ArqueoList.Models
     {
         [Key]
         public int ID_Validacao { get; set; }
+
         [StringLength(100)]
         public string Estado { get; set; }
+
         [StringLength(2000)]
         public string Motivo { get; set; }
+
+        [DataType(DataType.Date)] // informa a View de como deve tratar este atributo
+        [DisplayFormat(ApplyFormatInEditMode = true,
+                DataFormatString = "{0:dd-MM-yyyy}")]
+        [Required(ErrorMessage = "A {0} é de preenchimento obrigatório")]
         public DateOnly data_validacao { get; set; }
 
         [ForeignKey(nameof(ValidacaoArtigo))]
